@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<!-- ${controller.xxx} はコントローラのプロパティへの式バインディング（値が変わると画面も追従する） -->
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.github.kigo.examdesk.SheetController"
+            onKeyPressed="#onKeyPressed">
+    <top>
+        <VBox styleClass="sheet-header">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="nameField" styleClass="title-field" promptText="試験名" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="timerLabel" styleClass="chip">
+                    <graphic>
+                        <SVGPath styleClass="chip-icon" content="M12 7 V12 L15 14 M21 12 A9 9 0 1 1 3 12 A9 9 0 1 1 21 12"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="解答時間（答え合わせに進むと止まります）"/>
+                    </tooltip>
+                </Label>
+                <Button styleClass="ghost" text="保存" onAction="#onSave">
+                    <tooltip>
+                        <Tooltip text="Ctrl+S"/>
+                    </tooltip>
+                </Button>
+                <Button styleClass="ghost" text="閉じる" onAction="#onClose"/>
+            </HBox>
+
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="stepAnswer" styleClass="step" text="1  解答"/>
+                <Region styleClass="step-line"/>
+                <Label fx:id="stepCheck" styleClass="step" text="2  答え合わせ"/>
+                <Region styleClass="step-line"/>
+                <Label fx:id="stepResult" styleClass="step" text="3  結果"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label styleClass="hint" text="${controller.progressText}"/>
+            </HBox>
+            <ProgressBar progress="${controller.progress}" maxWidth="Infinity"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox>
+            <VBox HBox.hgrow="ALWAYS">
+                <HBox styleClass="rows-header">
+                    <Label styleClass="q-number" text="No."/>
+                    <Label styleClass="column-title" text="あなたの解答" prefWidth="100" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <Label styleClass="column-title" text="正解" prefWidth="100" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <Label styleClass="column-title,judge-title" text="判定"/>
+                </HBox>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="rowsBox" styleClass="rows"/>
+                </ScrollPane>
+            </VBox>
+
+            <!-- 採点後だけ表示。visible と managed を同じ式に結び付けて、非表示時は場所も取らない -->
+            <VBox styleClass="score-panel" visible="${controller.graded}" managed="${controller.graded}">
+                <HBox.margin>
+                    <Insets top="16" right="28" bottom="24"/>
+                </HBox.margin>
+                <Label styleClass="card-title" text="採点結果"/>
+                <StackPane>
+                    <Pane minWidth="150" minHeight="150" maxWidth="150" maxHeight="150">
+                        <Circle styleClass="ring-track" centerX="75" centerY="75" radius="64"/>
+                        <Arc fx:id="scoreArc" styleClass="ring-fill" centerX="75" centerY="75"
+                             radiusX="64" radiusY="64" startAngle="90" length="0" type="OPEN"/>
+                    </Pane>
+                    <Label fx:id="scoreLabel" styleClass="score-value"/>
+                </StackPane>
+                <Label fx:id="scoreDetailLabel" styleClass="score-detail"/>
+                <Separator/>
+                <Label styleClass="hint" wrapText="true"
+                       text="判定マーク（○ / ×）をクリックすると、表記ゆれなどの正誤を手動で直せます。"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="action-bar">
+            <Label fx:id="hintLabel" styleClass="hint" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button styleClass="accent,large" text="${controller.nextText}"
+                    disable="${controller.nextDisabled}" onAction="#onNext"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="io.github.kigo.examdesk.SettingsController" spacing="12" alignment="TOP_LEFT">
-    <padding>
-        <Insets top="12" right="12" bottom="12" left="12"/>
-    </padding>
+<ScrollPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.github.kigo.examdesk.SettingsController" fitToWidth="true">
+    <VBox styleClass="page">
+        <VBox spacing="4">
+            <Label styleClass="page-title" text="設定"/>
+            <Label styleClass="page-subtitle" text="変更はすぐに保存されます。"/>
+        </VBox>
 
-    <Label text="設定" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+        <VBox styleClass="card" maxWidth="760">
+            <Label styleClass="card-title" text="保存先フォルダ"/>
+            <Label styleClass="card-text" wrapText="true"
+                   text="保存・読み込みダイアログの初期フォルダ、および結果一覧で最初に開くフォルダになります。"/>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label fx:id="folderLabel" styleClass="path" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button styleClass="ghost" text="選択…" onAction="#onChooseFolder"/>
+                <Button styleClass="ghost" text="解除" onAction="#onClearFolder"/>
+            </HBox>
+        </VBox>
 
-    <HBox spacing="8" alignment="CENTER_LEFT">
-        <Button fx:id="chooseDefaultPathButton" text="デフォルトパスを選択する" onAction="#onChooseDefaultPath"/>
-        <Label fx:id="currentPathLabel" text="(未設定)" />
-    </HBox>
+        <VBox styleClass="card" maxWidth="760">
+            <Label styleClass="card-title" text="採点"/>
+            <CheckBox fx:id="lenientCheck" text="表記ゆれを許容する"/>
+            <Label styleClass="card-text" wrapText="true"
+                   text="全角・半角、大文字・小文字、空白の違いを無視して判定します。例: 「ＡＢＣ　１」と「abc1」は同じ答えとみなします。"/>
+        </VBox>
 
-    <CheckBox fx:id="autoOpenCheckBox" text="xmlを開く・保存する時にデフォルトパスを自動的に開く。" />
-
-    <HBox spacing="8" alignment="CENTER_RIGHT">
-        <Button text="保存" onAction="#onSave"/>
-        <Button text="キャンセル" onAction="#onCancel"/>
-    </HBox>
-</VBox>
+        <VBox styleClass="card" maxWidth="760">
+            <Label styleClass="card-title" text="外観"/>
+            <CheckBox fx:id="darkCheck" text="ダークテーマを使う"/>
+        </VBox>
+    </VBox>
+</ScrollPane>

@@ -1,0 +1,716 @@
+/*
+ * ExamDesk のテーマ。色は .root の looked-up color（-accent など）にまとめてあり、
+ * dark.css はこの値だけを上書きしてダークテーマにする。
+ */
+.root {
+    -accent: #4f46e5;
+    -accent-strong: #4338ca;
+    -accent-soft: #eef0ff;
+    -on-accent: #ffffff;
+    -canvas: #f4f5f9;
+    -surface: #ffffff;
+    -surface-alt: #f8f9fc;
+    -line: #e3e6ef;
+    -text: #1d2130;
+    -muted: #6b7086;
+    -ok: #12945a;
+    -ok-soft: #e5f6ed;
+    -ng: #d23a4c;
+    -ng-soft: #fdecee;
+    -warn: #b7791f;
+    -warn-soft: #fdf3e1;
+    -side: #181b2a;
+    -side-text: #a7adc4;
+    -side-active: #2a2f4a;
+    -side-accent: #a5b4fc;
+
+    -fx-base: #f1f2f7;
+    -fx-background: -canvas;
+    -fx-control-inner-background: -surface;
+    -fx-accent: -accent;
+    -fx-focus-color: -accent;
+    -fx-faint-focus-color: rgba(79, 70, 229, 0.15);
+    -fx-font-family: "Yu Gothic UI";
+    -fx-font-size: 13px;
+    -fx-background-color: -canvas;
+}
+
+/* ---------- 共通 ---------- */
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.page {
+    -fx-padding: 28 32 32 32;
+    -fx-spacing: 20;
+}
+
+.page-header {
+    -fx-padding: 28 32 16 32;
+}
+
+.page-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.page-subtitle,
+.card-text,
+.hint {
+    -fx-text-fill: -muted;
+}
+
+.card {
+    -fx-background-color: -surface;
+    -fx-background-radius: 14;
+    -fx-border-color: -line;
+    -fx-border-radius: 14;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(20, 24, 60, 0.06), 18, 0, 0, 4);
+}
+
+.card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.field-label {
+    -fx-text-fill: -muted;
+    -fx-font-size: 12px;
+}
+
+.path {
+    -fx-background-color: -surface-alt;
+    -fx-background-radius: 8;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-padding: 7 12;
+    -fx-text-fill: -text;
+}
+
+.check-box {
+    -fx-text-fill: -text;
+}
+
+/* ---------- ボタン・入力欄 ---------- */
+
+.button {
+    -fx-background-radius: 8;
+    -fx-padding: 7 14;
+    -fx-cursor: hand;
+}
+
+.button.accent {
+    -fx-background-color: -accent;
+    -fx-text-fill: -on-accent;
+    -fx-font-weight: bold;
+}
+
+.button.accent:hover {
+    -fx-background-color: -accent-strong;
+}
+
+.button.accent:focused {
+    -fx-background-color: -fx-focus-color, -accent;
+    -fx-background-insets: -2, 0;
+    -fx-background-radius: 10, 8;
+}
+
+.button.accent:disabled {
+    -fx-opacity: 0.4;
+}
+
+.button.ghost {
+    -fx-background-color: -surface;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-text-fill: -text;
+}
+
+.button.ghost:hover {
+    -fx-background-color: -accent-soft;
+    -fx-border-color: -accent;
+}
+
+.button.large {
+    -fx-padding: 10 22;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-radius: 8;
+    -fx-padding: 7 10;
+}
+
+.spinner {
+    -fx-background-radius: 8;
+}
+
+.spinner .text-field {
+    -fx-background-radius: 8 0 0 8;
+}
+
+/* ---------- サイドバー ---------- */
+
+.sidebar {
+    -fx-background-color: -side;
+    -fx-padding: 22 12 16 12;
+    -fx-spacing: 4;
+    -fx-pref-width: 214;
+    -fx-min-width: 214;
+}
+
+.brand {
+    -fx-padding: 0 6 22 6;
+}
+
+.brand-mark {
+    -fx-background-color: -accent;
+    -fx-background-radius: 10;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-max-width: 38;
+    -fx-max-height: 38;
+}
+
+.brand-icon {
+    -fx-fill: transparent;
+    -fx-stroke: white;
+    -fx-stroke-width: 2;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.brand-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.brand-sub {
+    -fx-text-fill: -side-text;
+    -fx-font-size: 11px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -side-text;
+    -fx-alignment: center-left;
+    -fx-padding: 10 14;
+    -fx-background-radius: 8;
+    -fx-graphic-text-gap: 12;
+    -fx-font-size: 13.5px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-text-fill: white;
+}
+
+.nav-button:selected {
+    -fx-background-color: -side-active;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.nav-button:disabled {
+    -fx-opacity: 0.35;
+}
+
+.nav-icon {
+    -fx-fill: transparent;
+    -fx-stroke: -side-text;
+    -fx-stroke-width: 1.8;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
+
+.nav-button:hover .nav-icon {
+    -fx-stroke: white;
+}
+
+.nav-button:selected .nav-icon {
+    -fx-stroke: -side-accent;
+}
+
+.sidebar-foot {
+    -fx-text-fill: derive(-side-text, -35%);
+    -fx-font-size: 11px;
+    -fx-padding: 0 8;
+}
+
+/* ---------- 解答用紙 ---------- */
+
+.sheet-header {
+    -fx-background-color: -surface;
+    -fx-border-color: transparent transparent -line transparent;
+    -fx-padding: 18 28 16 28;
+    -fx-spacing: 12;
+}
+
+.title-field {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-padding: 2 6;
+    -fx-text-fill: -text;
+}
+
+.title-field:hover {
+    -fx-background-color: -surface-alt;
+}
+
+.title-field:focused {
+    -fx-background-color: -fx-focus-color, -surface;
+    -fx-background-insets: 0, 1.5;
+}
+
+.chip {
+    -fx-background-color: -surface-alt;
+    -fx-border-color: -line;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-padding: 5 12;
+    -fx-text-fill: -text;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+    -fx-graphic-text-gap: 6;
+}
+
+.chip-icon {
+    -fx-fill: transparent;
+    -fx-stroke: -muted;
+    -fx-stroke-width: 1.8;
+    -fx-stroke-line-cap: round;
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
+}
+
+.step {
+    -fx-text-fill: -muted;
+    -fx-padding: 4 12;
+    -fx-background-radius: 999;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.step.active {
+    -fx-background-color: -accent;
+    -fx-text-fill: -on-accent;
+}
+
+.step.done {
+    -fx-background-color: -accent-soft;
+    -fx-text-fill: -accent;
+}
+
+.step-line {
+    -fx-background-color: -line;
+    -fx-min-height: 2;
+    -fx-max-height: 2;
+    -fx-pref-width: 28;
+}
+
+.progress-bar > .track {
+    -fx-background-color: -line;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: -accent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+    -fx-padding: 3;
+}
+
+.rows-header {
+    -fx-padding: 16 39 6 39;
+    -fx-spacing: 10;
+}
+
+.column-title {
+    -fx-text-fill: -muted;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: bold;
+}
+
+.judge-title {
+    -fx-min-width: 40;
+    -fx-alignment: center;
+}
+
+.rows {
+    -fx-padding: 0 28 24 28;
+    -fx-spacing: 6;
+}
+
+.question-row {
+    -fx-background-color: -surface;
+    -fx-background-radius: 10;
+    -fx-border-color: -line;
+    -fx-border-radius: 10;
+    -fx-padding: 7 10;
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+.question-row:correct {
+    -fx-background-color: -ok-soft;
+    -fx-border-color: derive(-ok-soft, -12%);
+}
+
+.question-row:wrong {
+    -fx-background-color: -ng-soft;
+    -fx-border-color: derive(-ng-soft, -12%);
+}
+
+.q-number {
+    -fx-text-fill: -muted;
+    -fx-font-weight: bold;
+    -fx-min-width: 36;
+    -fx-alignment: center;
+}
+
+/* 編集できない欄は文字だけを見せる */
+.question-row .text-field:readonly {
+    -fx-background-color: transparent;
+}
+
+.question-row .text-field:disabled {
+    -fx-opacity: 0.45;
+}
+
+.judge {
+    -fx-min-width: 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 32;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.judge:disabled {
+    -fx-opacity: 1;
+}
+
+.question-row:correct .judge {
+    -fx-text-fill: -ok;
+}
+
+.question-row:wrong .judge {
+    -fx-text-fill: -ng;
+}
+
+.judge:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.07);
+}
+
+.score-panel {
+    -fx-background-color: -surface;
+    -fx-background-radius: 14;
+    -fx-border-color: -line;
+    -fx-border-radius: 14;
+    -fx-padding: 22;
+    -fx-spacing: 12;
+    -fx-alignment: top-center;
+    -fx-pref-width: 250;
+    -fx-min-width: 250;
+    -fx-max-height: 420;
+}
+
+.ring-track {
+    -fx-fill: transparent;
+    -fx-stroke: -line;
+    -fx-stroke-width: 12;
+}
+
+.ring-fill {
+    -fx-fill: transparent;
+    -fx-stroke: -accent;
+    -fx-stroke-width: 12;
+    -fx-stroke-line-cap: round;
+}
+
+.score-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.score-detail {
+    -fx-text-fill: -muted;
+    -fx-font-size: 14px;
+}
+
+.action-bar {
+    -fx-background-color: -surface;
+    -fx-border-color: -line transparent transparent transparent;
+    -fx-padding: 12 28;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+.toast {
+    -fx-background-color: rgba(24, 27, 42, 0.92);
+    -fx-text-fill: white;
+    -fx-background-radius: 999;
+    -fx-padding: 10 22;
+}
+
+/* ---------- リスト・表 ---------- */
+
+.list-view,
+.table-view {
+    -fx-background-color: -surface;
+    -fx-background-radius: 12;
+    -fx-border-color: -line;
+    -fx-border-radius: 12;
+    -fx-padding: 4;
+}
+
+.list-cell {
+    -fx-padding: 9 12;
+    -fx-background-color: transparent;
+    -fx-text-fill: -text;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: -surface-alt;
+    -fx-background-radius: 8;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: -accent-soft;
+    -fx-background-radius: 8;
+}
+
+.entry-name {
+    -fx-font-weight: bold;
+    -fx-text-fill: -text;
+}
+
+.entry-meta {
+    -fx-text-fill: -muted;
+    -fx-font-size: 11.5px;
+}
+
+.badge {
+    -fx-padding: 3 10;
+    -fx-background-radius: 999;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.badge.high {
+    -fx-background-color: -ok-soft;
+    -fx-text-fill: -ok;
+}
+
+.badge.mid {
+    -fx-background-color: -warn-soft;
+    -fx-text-fill: -warn;
+}
+
+.badge.low {
+    -fx-background-color: -ng-soft;
+    -fx-text-fill: -ng;
+}
+
+.badge.pending {
+    -fx-background-color: -surface-alt;
+    -fx-border-color: -line;
+    -fx-border-radius: 999;
+    -fx-text-fill: -muted;
+}
+
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .filler {
+    -fx-background-color: -surface;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -muted;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent -line transparent;
+}
+
+.table-row-cell .table-cell {
+    -fx-text-fill: -text;
+    -fx-padding: 6 8;
+}
+
+.table-row-cell:correct .table-cell.center {
+    -fx-text-fill: -ok;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:wrong {
+    -fx-background-color: -ng-soft;
+}
+
+.table-row-cell:wrong .table-cell.center {
+    -fx-text-fill: -ng;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -accent-soft;
+}
+
+.table-cell.center,
+.table-column.center {
+    -fx-alignment: center;
+}
+
+/* ---------- 結果一覧 ---------- */
+
+.results-page > .split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0 32 28 32;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-padding: 0 7;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 6 14;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: -muted;
+    -fx-font-weight: bold;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-border-color: transparent transparent -accent transparent;
+    -fx-border-width: 0 0 2.5 0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: -accent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab-body {
+    -fx-padding: 14 0 0 0;
+}
+
+.stat {
+    -fx-background-color: -surface;
+    -fx-background-radius: 12;
+    -fx-border-color: -line;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-spacing: 2;
+}
+
+.stat-label {
+    -fx-text-fill: -muted;
+    -fx-font-size: 12px;
+}
+
+.stat-value {
+    -fx-text-fill: -text;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* ---------- グラフ ---------- */
+
+.chart {
+    -fx-background-color: -surface;
+    -fx-background-radius: 12;
+    -fx-border-color: -line;
+    -fx-border-radius: 12;
+    -fx-padding: 14;
+}
+
+.chart-title {
+    -fx-text-fill: -text;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    -fx-text-fill: -text;
+}
+
+.chart-pie {
+    -fx-border-color: -surface;
+    -fx-border-width: 2;
+}
+
+.score-pie .data0.chart-pie,
+.score-pie .data0.pie-legend-symbol {
+    -fx-pie-color: -ok;
+    -fx-background-color: -ok;
+}
+
+.score-pie .data1.chart-pie,
+.score-pie .data1.pie-legend-symbol {
+    -fx-pie-color: -ng;
+    -fx-background-color: -ng;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: -line;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+}
+
+.axis {
+    -fx-tick-label-fill: -muted;
+}
+
+.axis-label {
+    -fx-text-fill: -muted;
+}
+
+.chart-series-line {
+    -fx-stroke: -accent;
+    -fx-stroke-width: 2.5;
+}
+
+.chart-line-symbol {
+    -fx-background-color: -accent, -surface;
+    -fx-background-insets: 0, 2.5;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px;
+}

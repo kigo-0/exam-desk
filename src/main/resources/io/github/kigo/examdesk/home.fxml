@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.github.kigo.examdesk.HomeController" fitToWidth="true">
+    <VBox styleClass="page">
+        <VBox spacing="4">
+            <Label styleClass="page-title" text="ホーム"/>
+            <Label styleClass="page-subtitle" text="紙の問題集やテストの解答を記録して、答え合わせと振り返りができます。"/>
+        </VBox>
+
+        <HBox spacing="20">
+            <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="400">
+                <Label styleClass="card-title" text="新しい試験をはじめる"/>
+                <Label styleClass="card-text" wrapText="true"
+                       text="問題数を決めて解答用紙を作ります。解答 → 答え合わせ → 採点 の順に進みます。"/>
+                <GridPane hgap="12" vgap="6">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                        <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    </columnConstraints>
+                    <Label styleClass="field-label" text="試験名"/>
+                    <Label styleClass="field-label" text="問題数" GridPane.columnIndex="1"/>
+                    <TextField fx:id="nameField" GridPane.rowIndex="1"/>
+                    <!-- @NamedArg 付きコンストラクタ Spinner(min, max, initialValue) をFXML属性で呼ぶ -->
+                    <Spinner fx:id="countSpinner" min="1" max="200" initialValue="20" editable="true"
+                             maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                </GridPane>
+                <Region VBox.vgrow="ALWAYS"/>
+                <Button styleClass="accent,large" text="解答用紙を作成" defaultButton="true"
+                        maxWidth="Infinity" onAction="#onStart"/>
+            </VBox>
+
+            <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="400">
+                <Label styleClass="card-title" text="続きから"/>
+                <Label styleClass="card-text" wrapText="true" text="保存した試験を開いて、解答や答え合わせを再開します。"/>
+                <ListView fx:id="recentList" prefHeight="150" VBox.vgrow="ALWAYS">
+                    <placeholder>
+                        <Label styleClass="hint" text="最近開いたファイルはありません"/>
+                    </placeholder>
+                </ListView>
+                <Button styleClass="ghost" text="ファイルを開く…" maxWidth="Infinity" onAction="#onOpen"/>
+            </VBox>
+        </HBox>
+
+        <HBox styleClass="card" spacing="16" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label styleClass="card-title" text="これまでの結果を振り返る"/>
+                <Label styleClass="card-text" text="フォルダ内の結果を一覧し、正答率の推移をグラフで確認できます。"/>
+            </VBox>
+            <Button styleClass="ghost" text="結果一覧へ" onAction="#onResults"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

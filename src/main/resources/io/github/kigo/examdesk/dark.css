@@ -1,0 +1,28 @@
+/* ダークテーマ。app.css の後に読み込み、色の変数だけを差し替える。 */
+.root {
+    -accent: #818cf8;
+    -accent-strong: #a5b4fc;
+    -accent-soft: #2a2e55;
+    -on-accent: #11132a;
+    -canvas: #12141d;
+    -surface: #1b1e2b;
+    -surface-alt: #222637;
+    -line: #2e3347;
+    -text: #e6e8f2;
+    -muted: #9097b0;
+    -ok: #4ade80;
+    -ok-soft: #163126;
+    -ng: #f87171;
+    -ng-soft: #3a1c24;
+    -warn: #fbbf24;
+    -warn-soft: #382d14;
+    -side: #0c0e16;
+    -side-active: #232843;
+
+    -fx-base: #262a3b;
+    -fx-faint-focus-color: rgba(129, 140, 248, 0.2);
+}
+
+.judge:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+}

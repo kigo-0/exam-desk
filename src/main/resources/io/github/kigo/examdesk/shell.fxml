@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<!-- 全体の枠。stylesheets の @ はこのFXMLからの相対パス。 -->
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="io.github.kigo.examdesk.ShellController"
+            stylesheets="@app.css" prefWidth="1120" prefHeight="740">
+
+    <!-- 別FXMLを部品として埋め込む。コントローラは ShellController#sidebarController に注入される -->
+    <left>
+        <fx:include fx:id="sidebar" source="sidebar.fxml"/>
+    </left>
+
+    <center>
+        <StackPane>
+            <StackPane fx:id="contentPane"/>
+            <Label fx:id="toastLabel" styleClass="toast" opacity="0" mouseTransparent="true"
+                   StackPane.alignment="BOTTOM_CENTER">
+                <StackPane.margin>
+                    <Insets bottom="84"/>
+                </StackPane.margin>
+            </Label>
+        </StackPane>
+    </center>
+</BorderPane>

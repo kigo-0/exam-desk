@@ -10,12 +10,18 @@ public class EntryPoint extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/io/github/kigo/examdesk/start.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("shell.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 420, 140);
+        ShellController shell = loader.getController();
+
+        stage.setScene(new Scene(root));
+        shell.applyTheme();
         stage.setTitle("ExamDesk");
-        stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMinWidth(900);
+        stage.setMinHeight(600);
+        stage.setOnCloseRequest(e -> {
+            if (!shell.confirmDiscard()) e.consume();
+        });
         stage.show();
     }
 

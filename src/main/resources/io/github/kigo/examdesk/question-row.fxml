@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- 1問分の行。SheetController が問題数だけ読み込んで並べる -->
+<HBox xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.kigo.examdesk.QuestionRowController"
+      fx:id="root" styleClass="question-row">
+    <Label fx:id="numberLabel" styleClass="q-number"/>
+    <TextField fx:id="answerField" promptText="解答" prefWidth="100" HBox.hgrow="ALWAYS"/>
+    <TextField fx:id="correctField" promptText="正解" prefWidth="100" HBox.hgrow="ALWAYS"/>
+    <Button fx:id="markButton" styleClass="judge" focusTraversable="false"/>
+</HBox>

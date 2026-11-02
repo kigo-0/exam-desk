@@ -1,53 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="io.github.kigo.examdesk.ResultsController">
+            fx:controller="io.github.kigo.examdesk.ResultsController" styleClass="results-page">
+    <top>
+        <HBox styleClass="page-header" spacing="10" alignment="CENTER_LEFT">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label styleClass="page-title" text="結果一覧"/>
+                <Label fx:id="folderLabel" styleClass="page-subtitle"/>
+            </VBox>
+            <!-- minWidth="-Infinity" は USE_PREF_SIZE。長いパスに押されてボタンが縮まないようにする -->
+            <Button styleClass="ghost" text="フォルダを変更…" minWidth="-Infinity" onAction="#onChangeFolder"/>
+            <Button styleClass="ghost" text="再読み込み" minWidth="-Infinity" onAction="#onReload"/>
+        </HBox>
+    </top>
+
     <center>
-        <SplitPane dividerPositions="0.35">
-            <items>
-                <VBox spacing="8">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
+        <SplitPane dividerPositions="0.34">
+            <ListView fx:id="filesList" minWidth="240">
+                <placeholder>
+                    <VBox spacing="10" alignment="CENTER">
+                        <Label styleClass="hint" text="試験ファイルが見つかりません"/>
+                        <Button styleClass="ghost" text="フォルダを選択…" onAction="#onChangeFolder"/>
+                    </VBox>
+                </placeholder>
+            </ListView>
 
-                    <Label text="フォルダ内のXMLファイル" />
-                    <TreeView fx:id="filesTree" prefWidth="320" prefHeight="480"/>
-                    <HBox spacing="8" alignment="CENTER_RIGHT">
-                        <Button text="フォルダを再読み込み" onAction="#onReloadFolder"/>
-                        <Button text="戻る" onAction="#onBack"/>
-                    </HBox>
-                </VBox>
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+                <Tab text="詳細">
+                    <content>
+                        <StackPane styleClass="tab-body">
+                            <Label fx:id="emptyLabel" styleClass="hint" text="左のリストから試験を選んでください"/>
+                            <VBox fx:id="detailPane" spacing="14">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                        <Label fx:id="detailTitle" styleClass="card-title"/>
+                                        <Label fx:id="detailMeta" styleClass="hint"/>
+                                    </VBox>
+                                    <Button styleClass="accent" text="この試験を開く" onAction="#onOpenSelected"/>
+                                </HBox>
+                                <HBox spacing="14" VBox.vgrow="ALWAYS">
+                                    <PieChart fx:id="pieChart" styleClass="score-pie" animated="false"
+                                              labelsVisible="false" legendSide="BOTTOM" startAngle="90"
+                                              minWidth="220" prefWidth="240" maxWidth="260"/>
+                                    <TableView fx:id="answerTable" HBox.hgrow="ALWAYS">
+                                        <!-- fx:constant でクラスの static 定数を参照する -->
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+                                        </columnResizePolicy>
+                                        <!-- PropertyValueFactory で AnswerRow の getter を列に結び付ける -->
+                                        <columns>
+                                            <TableColumn text="No." prefWidth="56" minWidth="56" maxWidth="70" styleClass="center">
+                                                <cellValueFactory>
+                                                    <PropertyValueFactory property="number"/>
+                                                </cellValueFactory>
+                                            </TableColumn>
+                                            <TableColumn text="あなたの解答" prefWidth="180">
+                                                <cellValueFactory>
+                                                    <PropertyValueFactory property="answer"/>
+                                                </cellValueFactory>
+                                            </TableColumn>
+                                            <TableColumn text="正解" prefWidth="180">
+                                                <cellValueFactory>
+                                                    <PropertyValueFactory property="correct"/>
+                                                </cellValueFactory>
+                                            </TableColumn>
+                                            <TableColumn text="判定" prefWidth="64" minWidth="56" styleClass="center">
+                                                <cellValueFactory>
+                                                    <PropertyValueFactory property="mark"/>
+                                                </cellValueFactory>
+                                            </TableColumn>
+                                        </columns>
+                                    </TableView>
+                                </HBox>
+                            </VBox>
+                        </StackPane>
+                    </content>
+                </Tab>
 
-                <VBox spacing="8">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
-
-                    <Label fx:id="examNameLabel" text="試験名:" />
-
-                    <TableView fx:id="resultsTable" prefHeight="420" prefWidth="560">
-                        <columns>
-                            <TableColumn fx:id="colId" text="問題番号" prefWidth="80"/>
-                            <TableColumn fx:id="colStudent" text="解答" prefWidth="160"/>
-                            <TableColumn fx:id="colCorrect" text="正解" prefWidth="160"/>
-                            <TableColumn fx:id="colIsCorrect" text="結果" prefWidth="80"/>
-                        </columns>
-                    </TableView>
-
-                    <Label fx:id="accuracyLabel" text="正解率:" />
-                </VBox>
-            </items>
+                <Tab text="成績の推移">
+                    <content>
+                        <VBox styleClass="tab-body" spacing="14">
+                            <HBox spacing="12">
+                                <VBox styleClass="stat" HBox.hgrow="ALWAYS" prefWidth="0">
+                                    <Label styleClass="stat-label" text="採点済み"/>
+                                    <Label fx:id="statCount" styleClass="stat-value"/>
+                                </VBox>
+                                <VBox styleClass="stat" HBox.hgrow="ALWAYS" prefWidth="0">
+                                    <Label styleClass="stat-label" text="平均正答率"/>
+                                    <Label fx:id="statAverage" styleClass="stat-value"/>
+                                </VBox>
+                                <VBox styleClass="stat" HBox.hgrow="ALWAYS" prefWidth="0">
+                                    <Label styleClass="stat-label" text="最高"/>
+                                    <Label fx:id="statBest" styleClass="stat-value"/>
+                                </VBox>
+                                <VBox styleClass="stat" HBox.hgrow="ALWAYS" prefWidth="0">
+                                    <Label styleClass="stat-label" text="最新"/>
+                                    <Label fx:id="statLatest" styleClass="stat-value"/>
+                                </VBox>
+                            </HBox>
+                            <!-- 軸もFXMLで宣言できる。縦軸は 0〜100% に固定 -->
+                            <LineChart fx:id="trendChart" legendVisible="false" animated="false" VBox.vgrow="ALWAYS">
+                                <xAxis>
+                                    <CategoryAxis/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="正答率 (%)" autoRanging="false" lowerBound="0" upperBound="100" tickUnit="20"/>
+                                </yAxis>
+                            </LineChart>
+                        </VBox>
+                    </content>
+                </Tab>
+            </TabPane>
         </SplitPane>
     </center>
 </BorderPane>
